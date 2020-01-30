@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Monster.tscn" type="PackedScene" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://sprites/textura-muro-piedras_1110-425.jpg" type="Texture" id=5]
 [ext_resource path="res://sounds/GameOver.wav" type="AudioStream" id=6]
 [ext_resource path="res://sounds/The Good Fight (no intro).wav" type="AudioStream" id=7]
+[ext_resource path="res://sprites/buttons/down.png" type="Texture" id=8]
+[ext_resource path="res://sprites/buttons/up.png" type="Texture" id=9]
+[ext_resource path="res://sprites/buttons/right.png" type="Texture" id=10]
+[ext_resource path="res://sprites/buttons/left.png" type="Texture" id=11]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -54,6 +58,32 @@ stream = ExtResource( 6 )
 
 [node name="Musica" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Right" type="TouchScreenButton" parent="CanvasLayer"]
+position = Vector2( 244.525, 513.201 )
+normal = ExtResource( 10 )
+action = "ui_right"
+visibility_mode = 1
+
+[node name="Left" type="TouchScreenButton" parent="CanvasLayer"]
+position = Vector2( 150.942, 513.201 )
+normal = ExtResource( 11 )
+action = "ui_left"
+visibility_mode = 1
+
+[node name="Up" type="TouchScreenButton" parent="CanvasLayer"]
+position = Vector2( 199.243, 478.485 )
+normal = ExtResource( 9 )
+action = "ui_up"
+visibility_mode = 1
+
+[node name="Down" type="TouchScreenButton" parent="CanvasLayer"]
+position = Vector2( 199.243, 546.409 )
+normal = ExtResource( 8 )
+action = "ui_down"
+visibility_mode = 1
 [connection signal="touched" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MonsterTimer" to="." method="_on_MonsterTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

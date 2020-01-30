@@ -38,7 +38,7 @@ position = Vector2( 0.199402, 2.38437 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
 animation = "Fly"
-frame = 5
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

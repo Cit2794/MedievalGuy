@@ -12,6 +12,7 @@ func _ready():
 func _process(delta): #delta es la velocidad en tiempo real del pc
 	Movimiento = Vector2() #limpiar variable
 	
+	#Condicionales con botones de teclado
 	if Input.is_action_pressed("ui_right"):
 		Movimiento.x += 1
 	if Input.is_action_pressed("ui_left"):

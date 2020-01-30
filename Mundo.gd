@@ -3,6 +3,10 @@ export (PackedScene) var Monster
 var Score
 
 func _ready():
+	$CanvasLayer/Down.hide()
+	$CanvasLayer/Left.hide()
+	$CanvasLayer/Right.hide()
+	$CanvasLayer/Up.hide()
 	randomize()
 	
 func nuevo_juego():
@@ -10,12 +14,20 @@ func nuevo_juego():
 	$Player.inicio($PosicionDeInicio.position) #Posición de inicio del jugador
 	$InicioTimer.start()
 	$Interfaz.mostrar_mensaje("Listo!")
+	$CanvasLayer/Down.show()
+	$CanvasLayer/Left.show()
+	$CanvasLayer/Right.show()
+	$CanvasLayer/Up.show()
 	$Interfaz.update_score(Score)
 	$Musica.play()
 
 func game_over():
 	$ScoreTimer.stop()
 	$MonsterTimer.stop()
+	$CanvasLayer/Down.hide()
+	$CanvasLayer/Left.hide()
+	$CanvasLayer/Right.hide()
+	$CanvasLayer/Up.hide()
 	$Interfaz.game_over()
 	$AudioMuerte.play()
 	$Musica.stop()
