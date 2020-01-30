@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Monster.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Mundo.gd" type="Script" id=3]
+[ext_resource path="res://Interfaz.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sprites/textura-muro-piedras_1110-425.jpg" type="Texture" id=5]
+[ext_resource path="res://sounds/GameOver.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/The Good Fight (no intro).wav" type="AudioStream" id=7]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -1.49591, -0.199448, 0, 0, 0, 0, 459.539, -0.199448, 0, 0, 0, 0, 459.452, 659.94, 0, 0, 0, 0, -0.632431, 658.678, 0, 0, 0, 0, -1.49591, -0.199448 )
+}
+
+[node name="Mundo" type="Node"]
+script = ExtResource( 3 )
+Monster = ExtResource( 2 )
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 682.0
+margin_bottom = 661.0
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+
+[node name="MonsterTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="InicioTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="PosicionDeInicio" type="Position2D" parent="."]
+position = Vector2( 230, 330 )
+
+[node name="Camino" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="MonsterPosition" type="PathFollow2D" parent="Camino"]
+position = Vector2( -1.49591, -0.199448 )
+rotation = -3.79722e-09
+
+[node name="Interfaz" parent="." instance=ExtResource( 4 )]
+
+[node name="AudioMuerte" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="Musica" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+[connection signal="touched" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MonsterTimer" to="." method="_on_MonsterTimer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="InicioTimer" to="." method="_on_InicioTimer_timeout"]
+[connection signal="iniciar_juego" from="Interfaz" to="." method="nuevo_juego"]
